@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+services:
+  gluetun:
+    image: qmcgaw/gluetun:${GLUETUN_VERSION:-latest}
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - ./scripts:/scripts:ro
+    env_file:
+      - ./gluetun.env
+    environment:
+      VPN_SERVICE_PROVIDER: protonvpn
+      VPN_TYPE: wireguard
+      VPN_INTERFACE: wg0
+      VPN_PORT_FORWARDING: on
+      VPN_PORT_FORWARDING_UP_COMMAND: /bin/sh -c '/scripts/port_up.sh {{PORT}} {{VPN_INTERFACE}}'
+      VPN_PORT_FORWARDING_DOWN_COMMAND: /bin/sh -c /scripts/port_down.sh
+      TZ: &TZ ${TZ:-America/Toronto}
+    restart: unless-stopped
+
+  qbt:
+    image: lscr.io/linuxserver/qbittorrent:${QBITTORRENT_VERSION:-latest}
+    env_file:
+      - ./qbittorrent.env
+    environment:
+      TZ: *TZ
+    network_mode: "service:gluetun"
+    volumes:
+      - ${QBT_CONFIG:?configuration directory is not set}:/config
+      - ${QBT_DOWNLOADS:?downloads directory is not set}:/downloads
+    restart: unless-stopped

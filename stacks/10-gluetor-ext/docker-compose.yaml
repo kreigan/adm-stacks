@@ -1,0 +1,16 @@
+services:
+  gluetun:
+    extends:
+      file: &base ../common/gluetor/gluetor-base.yaml
+      service: gluetun
+    ports:
+      - ${WEBUI_PORT:-8080}:${WEBUI_PORT:-8080}
+    environment:
+      WEBUI_PORT: &qbt_port ${WEBUI_PORT:-8080}
+
+  qbt:
+    extends:
+      file: *base
+      service: qbt
+    environment:
+      WEBUI_PORT: *qbt_port

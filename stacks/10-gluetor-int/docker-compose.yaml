@@ -1,0 +1,16 @@
+services:
+  gluetun:
+    extends:
+      file: &base ../common/gluetor/gluetor-base.yaml
+      service: gluetun
+    networks:
+      - arr-net
+
+  qbt:
+    extends:
+      file: *base
+      service: qbt
+
+networks:
+  arr-net:
+    external: true

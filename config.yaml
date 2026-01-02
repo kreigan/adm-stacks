@@ -1,0 +1,8 @@
+up-args:
+  - "--detach"
+  - "--wait-timeout"
+  - "30"
+  - "--pull"
+  - "always"
+
+timeout: 10
