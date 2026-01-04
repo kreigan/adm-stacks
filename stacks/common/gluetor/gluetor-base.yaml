@@ -19,6 +19,8 @@ services:
       VPN_PORT_FORWARDING_DOWN_COMMAND: /bin/sh -c /scripts/port_down.sh
       TZ: &TZ ${TZ:-America/Toronto}
     restart: unless-stopped
+    labels:
+      autoheal: true
 
   qbt:
     image: lscr.io/linuxserver/qbittorrent:${QBITTORRENT_VERSION:-latest}
@@ -31,3 +33,5 @@ services:
       - ${QBT_CONFIG:?configuration directory is not set}:/config
       - ${QBT_DOWNLOADS:?downloads directory is not set}:/downloads
     restart: unless-stopped
+    labels:
+      autoheal: true
