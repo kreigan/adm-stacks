@@ -19,6 +19,8 @@ services:
       VPN_PORT_FORWARDING: on
       VPN_PORT_FORWARDING_UP_COMMAND: /bin/sh -c '/scripts/port_up.sh {{PORT}} {{VPN_INTERFACE}}'
       VPN_PORT_FORWARDING_DOWN_COMMAND: /bin/sh -c /scripts/port_down.sh
+      HTTPPROXY: off
+      SHADOWSOCKS: off
       TZ: &TZ ${TZ:-America/Toronto}
     restart: unless-stopped
     labels:
