@@ -37,5 +37,8 @@ services:
       - ${QBT_CONFIG:?configuration directory is not set}:/config
       - ${QBT_DOWNLOADS:?downloads directory is not set}:/downloads
     restart: unless-stopped
+    depends_on:
+      gluetun:
+        condition: service_healthy
     labels:
       autoheal: true
