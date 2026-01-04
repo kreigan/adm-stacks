@@ -3,6 +3,7 @@ services:
     extends:
       file: &base ../common/gluetor/gluetor-base.yaml
       service: gluetun
+    container_name: gluetor-int-gluetun
     networks:
       - arr-net
 
@@ -10,6 +11,7 @@ services:
     extends:
       file: *base
       service: qbt
+    container_name: gluetor-int-qbt
 
 networks:
   arr-net:
