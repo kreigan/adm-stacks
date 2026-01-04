@@ -28,10 +28,6 @@ Put the following variables in the respective environment files.
 
 |File|Variable|Required|Default|Description|
 |-|-|-|-|-|
-|`gluetun.env`|`WIREGUARD_PRIVATE_KEY`|+||The Wireguard private key for ProtonVPN.|
-|`gluetun.env`|`WIREGUARD_ENDPOINT_IP`|+||The Wireguard endpoint IP for ProtonVPN.|
-|`gluetun.env`|`WIREGUARD_PUBLIC_KEY`|+||The Wireguard public key for ProtonVPN.|
-|`gluetun.env`|`WIREGUARD_ADDRESSES`|+||The Wireguard addresses for ProtonVPN.|
 |`qbittorrent.env`|`PUID`||`1000`|The user ID for qBittorrent to run as inside the container.|
 |`qbittorrent.env`|`PGID`||`1000`|The group ID for qBittorrent to run as inside the container.|
 
@@ -42,6 +38,10 @@ The file is implicitly read by Docker Compose.
 
 |Variable|Description|
 |-|-|
+|`WIREGUARD_PRIVATE_KEY`|The Wireguard private key for ProtonVPN.|
+|`WIREGUARD_ENDPOINT_IP`|The Wireguard endpoint IP for ProtonVPN.|
+|`WIREGUARD_PUBLIC_KEY`|The Wireguard public key for ProtonVPN.|
+|`WIREGUARD_ADDRESSES`|The Wireguard addresses for ProtonVPN.|
 |`QBT_CONFIG`|The path to the qBittorrent configuration directory on the host.|
 |`QBT_DOWNLOADS`|The path to the qBittorrent downloads directory on the host.|
 
@@ -76,6 +76,10 @@ services:
 .env:
 
 ```env
+WIREGUARD_PRIVATE_KEY=<your private key>
+WIREGUARD_ENDPOINT_IP=<ProtonVPN server IP>
+WIREGUARD_PUBLIC_KEY=<ProtonVPN server public key>
+WIREGUARD_ADDRESSES=<ProtonVPN assigned Wireguard address>
 QBT_CONFIG=/path/to/qbt/config
 QBT_DOWNLOADS=/path/to/qbt/downloads
 ```

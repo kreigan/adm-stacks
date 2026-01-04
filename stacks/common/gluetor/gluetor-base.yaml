@@ -8,12 +8,14 @@ services:
       - /dev/net/tun:/dev/net/tun
     volumes:
       - ./scripts:/scripts:ro
-    env_file:
-      - ./gluetun.env
     environment:
       VPN_SERVICE_PROVIDER: protonvpn
       VPN_TYPE: wireguard
       VPN_INTERFACE: wg0
+      WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY:?wireguard private key is not set}
+      WIREGUARD_ENDPOINT_IP: ${WIREGUARD_ENDPOINT_IP:?wireguard endpoint ip is not set}
+      WIREGUARD_PUBLIC_KEY: ${WIREGUARD_PUBLIC_KEY:?wireguard public key is not set}
+      WIREGUARD_ADDRESSES: ${WIREGUARD_ADDRESSES:?wireguard address is not set}
       VPN_PORT_FORWARDING: on
       VPN_PORT_FORWARDING_UP_COMMAND: /bin/sh -c '/scripts/port_up.sh {{PORT}} {{VPN_INTERFACE}}'
       VPN_PORT_FORWARDING_DOWN_COMMAND: /bin/sh -c /scripts/port_down.sh
