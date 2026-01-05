@@ -1,0 +1,21 @@
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: Radarr
+    environment:
+      - PUID=1125
+      - PGID=1250
+      - TZ=America/Toronto
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config:/config:rw
+      - /share/Media:/data:rw
+    networks:
+      - arr-net
+    ports:
+      - 17878:7878
+    restart: unless-stopped
+
+networks:
+  arr-net:
+    external: true

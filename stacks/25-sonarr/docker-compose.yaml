@@ -1,0 +1,21 @@
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: Sonarr
+    environment:
+      - PUID=1125
+      - PGID=1250
+      - TZ=America/Toronto
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config:/config:rw
+      - /share/Media:/data:rw
+    networks:
+      - arr-net
+    ports:
+      - 18989:8989
+    restart: unless-stopped
+
+networks:
+  arr-net:
+    external: true
